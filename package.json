@@ -1,5 +1,8 @@
 {
-  "dependencies": {
-    "axios": "^1.20.0"
+  "name": "igen.ai",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "npm --prefix server install",
+    "start": "npm --prefix server start"
   }
 }
