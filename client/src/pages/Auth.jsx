@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { BsRobot } from "react-icons/bs";
 import { IoSparkles } from "react-icons/io5";
 import { motion } from "motion/react"
@@ -9,10 +9,17 @@ import axios from 'axios';
 import { ServerUrl } from '../App';
 import { useDispatch } from 'react-redux';
 import { setUserData } from '../redux/userSlice';
+import { useNavigate } from 'react-router-dom';
+
 function Auth({isModel = false}) {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const [loading, setLoading] = useState(false)
+    const [errorMsg, setErrorMsg] = useState("")
 
     const handleGoogleAuth = async () => {
+        setLoading(true)
+        setErrorMsg("")
         try {
             const response = await signInWithPopup(auth,provider)
             let User = response.user
@@ -20,13 +27,16 @@ function Auth({isModel = false}) {
             let email = User.email
             const result = await axios.post(ServerUrl + "/api/auth/google" , {name , email} , {withCredentials:true})
             dispatch(setUserData(result.data))
-            
-
-
-            
+            if (!isModel) {
+                navigate("/")
+            }
         } catch (error) {
-            console.log(error)
-              dispatch(setUserData(null))
+            console.error("Auth error:", error)
+            const msg = error.response?.data?.message || error.message || "Failed to sign in with Google"
+            setErrorMsg(msg)
+            dispatch(setUserData(null))
+        } finally {
+            setLoading(false)
         }
     }
   return (
@@ -66,15 +76,22 @@ function Auth({isModel = false}) {
             </p>
 
 
-            <motion.button 
-            onClick={handleGoogleAuth}
-            whileHover={{opacity:0.9 , scale:1.03}}
-            whileTap={{opacity:1 , scale:0.98}}
-            className='w-full flex items-center justify-center gap-3 py-3 bg-black text-white rounded-full shadow-md '>
-                <FcGoogle size={20}/>
-                Continue with Google
+            {errorMsg && (
+                <div className='mb-6 p-3 bg-red-50 border border-red-200 text-red-600 text-sm rounded-xl text-center'>
+                    {errorMsg}
+                </div>
+            )}
 
-   
+            <motion.button 
+            disabled={loading}
+            onClick={handleGoogleAuth}
+            whileHover={!loading ? {opacity:0.9 , scale:1.03} : {}}
+            whileTap={!loading ? {opacity:1 , scale:0.98} : {}}
+            className={`w-full flex items-center justify-center gap-3 py-3 rounded-full shadow-md transition ${
+                loading ? "bg-gray-400 text-white cursor-not-allowed" : "bg-black text-white hover:bg-gray-900"
+            }`}>
+                <FcGoogle size={20}/>
+                {loading ? "Signing in..." : "Continue with Google"}
             </motion.button>
         </motion.div>
 
