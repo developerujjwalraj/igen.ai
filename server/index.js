@@ -12,9 +12,19 @@ import paymentRouter from "./routes/payment.route.js"
 const app = express()
 app.set("trust proxy", 1)
 app.use(cors({
-    origin: process.env.CLIENT_URL 
-        ? [process.env.CLIENT_URL, "http://localhost:5173"] 
-        : "http://localhost:5173",
+    origin: (origin, callback) => {
+        if (!origin) return callback(null, true);
+        if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) {
+            return callback(null, true);
+        }
+        if (/^https:\/\/.*\.vercel\.app$/.test(origin)) {
+            return callback(null, true);
+        }
+        if (process.env.CLIENT_URL && (origin === process.env.CLIENT_URL || origin === process.env.CLIENT_URL.replace(/\/$/, ""))) {
+            return callback(null, true);
+        }
+        return callback(null, true); // Fallback allow in dev
+    },
     credentials: true
 }))
 

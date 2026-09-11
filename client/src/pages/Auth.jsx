@@ -32,7 +32,10 @@ function Auth({isModel = false}) {
             }
         } catch (error) {
             console.error("Auth error:", error)
-            const msg = error.response?.data?.message || error.message || "Failed to sign in with Google"
+            let msg = error.response?.data?.message || error.message || "Failed to sign in with Google"
+            if (error.message === "Network Error" || !error.response) {
+                msg = `Network Error: Cannot connect to backend server at "${ServerUrl}". Please make sure the backend is running.`
+            }
             setErrorMsg(msg)
             dispatch(setUserData(null))
         } finally {
