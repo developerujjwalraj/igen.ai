@@ -1,13 +1,14 @@
 
 import { initializeApp } from "firebase/app";
-import {getAuth, GoogleAuthProvider} from "firebase/auth"
+import { getAuth, GoogleAuthProvider } from "firebase/auth"
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_APIKEY,
-  authDomain: "interviewiq-ba6ba.firebaseapp.com",
-  projectId: "interviewiq-ba6ba",
-  storageBucket: "interviewiq-ba6ba.firebasestorage.app",
-  messagingSenderId: "862159592601",
-  appId: "1:862159592601:web:7308d702cd708076ddec08"
+  authDomain: "igenai-c8f1e.firebaseapp.com",
+  projectId: "igenai-c8f1e",
+  storageBucket: "igenai-c8f1e.firebasestorage.app",
+  messagingSenderId: "272617014678",
+  appId: "1:272617014678:web:415b6e0ef6b7aafd2d49b7",
+  measurementId: "G-WKKGQDTYVL"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -16,4 +17,4 @@ const auth = getAuth(app);
 
 const provider = new GoogleAuthProvider()
 
-export {auth , provider}
+export { auth, provider }

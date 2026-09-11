@@ -4,5 +4,8 @@
   "scripts": {
     "build": "npm --prefix server install",
     "start": "npm --prefix server start"
+  },
+  "dependencies": {
+    "firebase": "^12.19.0"
   }
 }
