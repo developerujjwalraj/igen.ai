@@ -2,11 +2,13 @@
 
 An intelligent, voice-enabled mock interview platform that simulates realistic technical and behavioral interviews, evaluates your responses in real time, and helps you overcome interview anxiety before the real deal.
 
+**Live Website URL** https://igen-ai.vercel.app/
+
 ---
 
 ## Why I Built This
 
-Preparing for tech interviews is stressful. Practicing alone in front of a mirror or reading through LeetCode solutions doesn't recreate the real pressure of an actual conversation. On the other hand, booking human mock interviewers often costs $50–$150 per session, which adds up quickly.
+Preparing for tech interviews is stressful. Practicing alone in front of a mirror or reading through LeetCode solutions doesn't recreate the real pressure of an actual conversation. On the other hand, booking human mock interviewers often costs too much.
 
 I built **igen.ai** to bridge that gap. It acts as an interactive, adaptive technical interviewer that:
 - Listens to your voice and transcribes answers in real time.
