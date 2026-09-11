@@ -58,9 +58,7 @@ function Auth({isModel = false}) {
         bg-white dark:bg-[#111622] shadow-2xl dark:shadow-black/60 border border-gray-200 dark:border-slate-800 transition-colors
       `}>
             <div className='flex items-center justify-center gap-3 mb-6'>
-                <div className='bg-black dark:bg-emerald-500 text-white dark:text-black p-2 rounded-lg'>
-                    <BsRobot size={18}/>
-                </div>
+                <img src="/favicon.png" alt="igen.ai logo" className='w-9 h-9 rounded-xl shadow-md' />
                 <h2 className='font-bold text-xl text-gray-900 dark:text-white tracking-tight'>igen.ai</h2>
             </div>
 

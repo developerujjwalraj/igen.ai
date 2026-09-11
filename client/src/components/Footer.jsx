@@ -36,9 +36,7 @@ function Footer({ onOpenAuth }) {
           
           {/* Brand Info */}
           <div className='flex items-center gap-3 cursor-pointer group' onClick={scrollToTop}>
-            <div className='bg-black dark:bg-emerald-500 text-white dark:text-black p-2.5 rounded-xl transition-transform group-hover:scale-105'>
-              <BsRobot size={20} />
-            </div>
+            <img src="/favicon.png" alt="igen.ai logo" className='w-9 h-9 rounded-xl shadow-md group-hover:scale-105 transition-transform' />
             <h2 className='font-bold text-2xl text-gray-900 dark:text-white tracking-tight'>
               igen.ai
             </h2>

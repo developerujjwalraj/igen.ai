@@ -50,10 +50,8 @@ function Navbar() {
         animate={{opacity:1 , y:0}}
         transition={{duration: 0.3}}
         className='w-full max-w-6xl bg-white dark:bg-[#111622] rounded-[24px] shadow-sm dark:shadow-black/40 border border-gray-200 dark:border-slate-800 px-8 py-4 flex justify-between items-center relative transition-colors duration-200'>
-            <div onClick={() => navigate("/")} className='flex items-center gap-3 cursor-pointer'>
-                <div className='bg-black dark:bg-emerald-500 text-white dark:text-black p-2 rounded-lg transition-colors'>
-                    <BsRobot size={18}/>
-                </div>
+            <div onClick={() => navigate("/")} className='flex items-center gap-3 cursor-pointer group'>
+                <img src="/favicon.png" alt="igen.ai logo" className='w-9 h-9 rounded-xl shadow-md group-hover:scale-105 transition-transform' />
                 <h1 className='font-bold hidden md:block text-lg text-gray-900 dark:text-white tracking-tight'>igen.ai</h1>
             </div>
 
