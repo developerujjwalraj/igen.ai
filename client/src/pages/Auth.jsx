@@ -45,7 +45,8 @@ function Auth({isModel = false}) {
   return (
     <div className={`
       w-full 
-      ${isModel ? "py-4" : "min-h-screen bg-[#f3f3f3] flex items-center justify-center px-6 py-20"}
+      ${isModel ? "py-4" : "min-h-screen bg-[#f3f3f3] dark:bg-[#0a0d14] flex items-center justify-center px-6 py-20"}
+      transition-colors duration-200
     `}>
         <motion.div 
         initial={{opacity:0 , y:-40}} 
@@ -54,33 +55,30 @@ function Auth({isModel = false}) {
         className={`
         w-full 
         ${isModel ? "max-w-md p-8 rounded-3xl" : "max-w-lg p-12 rounded-[32px]"}
-        bg-white shadow-2xl border border-gray-200
+        bg-white dark:bg-[#111622] shadow-2xl dark:shadow-black/60 border border-gray-200 dark:border-slate-800 transition-colors
       `}>
             <div className='flex items-center justify-center gap-3 mb-6'>
-                <div className='bg-black text-white p-2 rounded-lg'>
+                <div className='bg-black dark:bg-emerald-500 text-white dark:text-black p-2 rounded-lg'>
                     <BsRobot size={18}/>
-
                 </div>
-                <h2 className='font-semibold text-lg'>InterviewIQ.AI</h2>
+                <h2 className='font-bold text-xl text-gray-900 dark:text-white tracking-tight'>igen.ai</h2>
             </div>
 
-            <h1 className='text-2xl md:text-3xl font-semibold text-center leading-snug mb-4'>
+            <h1 className='text-2xl md:text-3xl font-semibold text-center leading-snug mb-4 text-gray-900 dark:text-white'>
                 Continue with
-                <span className='bg-green-100 text-green-600 px-3 py-1 rounded-full inline-flex items-center gap-2'>
+                <span className='bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/60 px-3 py-1 rounded-full inline-flex items-center gap-2 ml-2'>
                     <IoSparkles size={16}/>
                     AI Smart Interview
-
                 </span>
             </h1>
 
-            <p className='text-gray-500 text-center text-sm md:text-base leading-relaxed mb-8'>
+            <p className='text-gray-500 dark:text-slate-400 text-center text-sm md:text-base leading-relaxed mb-8'>
                 Sign in to start AI-powered mock interviews,
-        track your progress, and unlock detailed performance insights.
+                track your progress, and unlock detailed performance insights.
             </p>
 
-
             {errorMsg && (
-                <div className='mb-6 p-3 bg-red-50 border border-red-200 text-red-600 text-sm rounded-xl text-center'>
+                <div className='mb-6 p-3 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 text-red-600 dark:text-red-400 text-sm rounded-xl text-center'>
                     {errorMsg}
                 </div>
             )}
@@ -91,7 +89,9 @@ function Auth({isModel = false}) {
             whileHover={!loading ? {opacity:0.9 , scale:1.03} : {}}
             whileTap={!loading ? {opacity:1 , scale:0.98} : {}}
             className={`w-full flex items-center justify-center gap-3 py-3 rounded-full shadow-md transition ${
-                loading ? "bg-gray-400 text-white cursor-not-allowed" : "bg-black text-white hover:bg-gray-900"
+                loading 
+                  ? "bg-gray-400 text-white cursor-not-allowed" 
+                  : "bg-black dark:bg-emerald-500 text-white dark:text-black font-semibold hover:opacity-90 dark:hover:bg-emerald-400"
             }`}>
                 <FcGoogle size={20}/>
                 {loading ? "Signing in..." : "Continue with Google"}

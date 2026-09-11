@@ -328,11 +328,11 @@ setIsSubmitting(false)
 
 
   return (
-    <div className='min-h-screen bg-linear-to-br from-emerald-50 via-white to-teal-100 flex items-center justify-center p-4 sm:p-6'>
-      <div className='w-full max-w-350 min-h-[80vh] bg-white rounded-3xl shadow-2xl border border-gray-200 flex flex-col lg:flex-row overflow-hidden'>
+    <div className='min-h-screen bg-gradient-to-br from-emerald-50 via-white to-teal-100 dark:from-[#0a0d14] dark:via-[#0c121d] dark:to-[#0f1b2c] text-gray-900 dark:text-gray-100 flex items-center justify-center p-4 sm:p-6 transition-colors duration-200'>
+      <div className='w-full max-w-350 min-h-[80vh] bg-white dark:bg-[#111622] rounded-3xl shadow-2xl border border-gray-200 dark:border-slate-800 flex flex-col lg:flex-row overflow-hidden'>
 
         {/* video section */}
-        <div className='w-full lg:w-[35%] bg-white flex flex-col items-center p-6 space-y-6 border-r border-gray-200'>
+        <div className='w-full lg:w-[35%] bg-white dark:bg-[#0e1420] flex flex-col items-center p-6 space-y-6 border-b lg:border-b-0 lg:border-r border-gray-200 dark:border-slate-800'>
           <div className='w-full max-w-md rounded-2xl overflow-hidden shadow-xl'>
             <video
               src={videoSource}
@@ -347,41 +347,40 @@ setIsSubmitting(false)
 
           {/* subtitle */}
           {subtitle && (
-            <div className='w-full max-w-md bg-gray-50 border border-gray-200 rounded-xl p-4 shadow-sm'>
-              <p className='text-gray-700 text-sm sm:text-base font-medium text-center leading-relaxed'>{subtitle}</p>
+            <div className='w-full max-w-md bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl p-4 shadow-sm'>
+              <p className='text-gray-700 dark:text-slate-200 text-sm sm:text-base font-medium text-center leading-relaxed'>{subtitle}</p>
             </div>
           )}
 
 
           {/* timer Area */}
-          <div className='w-full max-w-md bg-white border border-gray-200 rounded-2xl shadow-md p-6 space-y-5'>
+          <div className='w-full max-w-md bg-white dark:bg-[#111622] border border-gray-200 dark:border-slate-800 rounded-2xl shadow-md p-6 space-y-5'>
             <div className='flex justify-between items-center'>
-              <span className='text-sm text-gray-500'>
+              <span className='text-sm text-gray-500 dark:text-slate-400'>
                 Interview Status
               </span>
-              {isAIPlaying && <span className='text-sm font-semibold text-emerald-600'>
+              {isAIPlaying && <span className='text-sm font-semibold text-emerald-600 dark:text-emerald-400'>
                 {isAIPlaying ? "AI Speaking" : ""}
               </span>}
             </div>
 
-            <div className="h-px bg-gray-200"></div>
+            <div className="h-px bg-gray-200 dark:bg-slate-800"></div>
 
             <div className='flex justify-center'>
-
               <Timer timeLeft={timeLeft} totalTime={currentQuestion?.timeLimit} />
             </div>
 
-            <div className="h-px bg-gray-200"></div>
+            <div className="h-px bg-gray-200 dark:bg-slate-800"></div>
 
             <div className='grid grid-cols-2 gap-6 text-center'>
               <div>
-                <span className='text-2xl font-bold text-emerald-600'>{currentIndex + 1}</span>
-                <span className='text-xs text-gray-400'>Current Questions</span>
+                <span className='text-2xl font-bold text-emerald-600 dark:text-emerald-400'>{currentIndex + 1}</span>
+                <span className='text-xs text-gray-400 dark:text-slate-500 block'>Current Question</span>
               </div>
 
               <div>
-                <span className='text-2xl font-bold text-emerald-600'>{questions.length}</span>
-                <span className='text-xs text-gray-400'>Total Questions</span>
+                <span className='text-2xl font-bold text-emerald-600 dark:text-emerald-400'>{questions.length}</span>
+                <span className='text-xs text-gray-400 dark:text-slate-500 block'>Total Questions</span>
               </div>
             </div>
 
@@ -391,32 +390,32 @@ setIsSubmitting(false)
 
         {/* Text section */}
 
-        <div className='flex-1 flex flex-col p-4 sm:p-6 md:p-8 relative'>
-          <h2 className='text-xl sm:text-2xl font-bold text-emerald-600 mb-6'>
+        <div className='flex-1 flex flex-col p-4 sm:p-6 md:p-8 relative bg-white dark:bg-[#111622]'>
+          <h2 className='text-xl sm:text-2xl font-bold text-emerald-600 dark:text-emerald-400 mb-6'>
             AI Smart Interview
           </h2>
 
 
-          {!isIntroPhase && (<div className='relative mb-6 bg-gray-50 p-4 sm:p-6 rounded-2xl border border-gray-200 shadow-sm'>
-            <p className='text-xs sm:text-sm text-gray-400 mb-2'>
+          {!isIntroPhase && (<div className='relative mb-6 bg-gray-50 dark:bg-slate-900/80 p-4 sm:p-6 rounded-2xl border border-gray-200 dark:border-slate-800 shadow-sm'>
+            <p className='text-xs sm:text-sm text-gray-400 dark:text-slate-500 mb-2'>
               Question {currentIndex + 1} of {questions.length}
             </p>
 
-            <div className='text-base sm:text-lg font-semibold text-gray-800 leading-relaxed '>{currentQuestion?.question}</div>
+            <div className='text-base sm:text-lg font-semibold text-gray-800 dark:text-white leading-relaxed'>{currentQuestion?.question}</div>
           </div>)
           }
           <textarea
             placeholder="Type your answer here..."
             onChange={(e) => setAnswer(e.target.value)}
             value={answer}
-            className="flex-1 bg-gray-100 p-4 sm:p-6 rounded-2xl resize-none outline-none border border-gray-200 focus:ring-2 focus:ring-emerald-500 transition text-gray-800" />
+            className="flex-1 bg-gray-100 dark:bg-slate-900 p-4 sm:p-6 rounded-2xl resize-none outline-none border border-gray-200 dark:border-slate-700 focus:ring-2 focus:ring-emerald-500 transition text-gray-800 dark:text-slate-100 placeholder-gray-400 dark:placeholder-slate-500" />
 
 
          {!feedback ? ( <div className='flex items-center gap-4 mt-6'>
             <motion.button
               onClick={toggleMic}
               whileTap={{ scale: 0.9 }}
-              className='w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center rounded-full bg-black text-white shadow-lg'>
+              className='w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center rounded-full bg-black dark:bg-emerald-500 text-white dark:text-black shadow-lg hover:opacity-90 transition'>
               {isMicOn ? <FaMicrophone size={20} /> : <FaMicrophoneSlash size={20}/>}
             </motion.button>
 
@@ -426,20 +425,18 @@ setIsSubmitting(false)
               whileTap={{ scale: 0.95 }}
               className='flex-1 bg-gradient-to-r from-emerald-600 to-teal-500 text-white py-3 sm:py-4 rounded-2xl shadow-lg hover:opacity-90 transition font-semibold disabled:bg-gray-500'>
               {isSubmitting?"Submitting...":"Submit Answer"}
-
             </motion.button>
 
           </div>):(
             <motion.div 
              initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-            className='mt-6 bg-emerald-50 border border-emerald-200 p-5 rounded-2xl shadow-sm'>
-              <p className='text-emerald-700 font-medium mb-4'>{feedback}</p>
+            className='mt-6 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/60 p-5 rounded-2xl shadow-sm'>
+              <p className='text-emerald-700 dark:text-emerald-300 font-medium mb-4'>{feedback}</p>
 
               <button
               onClick={handleNext}
-
-               className='w-full bg-gradient-to-r from-emerald-600 to-teal-500 text-white py-3 rounded-xl shadow-md hover:opacity-90 transition flex items-center justify-center gap-1'>
+               className='w-full bg-gradient-to-r from-emerald-600 to-teal-500 text-white py-3 rounded-xl shadow-md hover:opacity-90 transition flex items-center justify-center gap-1 font-medium'>
                 Next Question <BsArrowRight size={18}/>
               </button>
 

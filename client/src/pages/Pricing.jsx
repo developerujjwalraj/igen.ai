@@ -6,6 +6,7 @@ import axios from 'axios';
 import { ServerUrl } from '../App';
 import { useDispatch } from 'react-redux';
 import { setUserData } from '../redux/userSlice';
+import Footer from '../components/Footer';
 function Pricing() {
   const navigate = useNavigate()
   const [selectedPlan, setSelectedPlan] = useState("free");
@@ -77,7 +78,7 @@ function Pricing() {
       key: import.meta.env.VITE_RAZORPAY_KEY_ID,
       amount: result.data.amount,
       currency: "INR",
-      name: "InterviewIQ.AI",
+      name: "igen.ai",
       description: `${plan.name} - ${plan.credits} Credits`,
       order_id: result.data.id,
 
@@ -108,19 +109,19 @@ function Pricing() {
 
 
   return (
-    <div className='min-h-screen bg-gradient-to-br from-gray-50 to-emerald-50 py-16 px-6'>
+    <div className='min-h-screen bg-gradient-to-br from-gray-50 to-emerald-50 dark:from-[#0a0d14] dark:to-[#0d1624] text-gray-900 dark:text-gray-100 py-16 px-6 transition-colors duration-200'>
 
       <div className='max-w-6xl mx-auto mb-14 flex items-start gap-4'>
 
-        <button onClick={() => navigate("/")} className='mt-2 p-3 rounded-full bg-white shadow hover:shadow-md transition'>
-          <FaArrowLeft className='text-gray-600' />
+        <button onClick={() => navigate("/")} className='mt-2 p-3 rounded-full bg-white dark:bg-[#161f30] border border-gray-200 dark:border-slate-700 shadow hover:shadow-md transition text-gray-700 dark:text-slate-200'>
+          <FaArrowLeft />
         </button>
 
         <div className="text-center w-full">
-          <h1 className="text-4xl font-bold text-gray-800">
+          <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
             Choose Your Plan
           </h1>
-          <p className="text-gray-500 mt-3 text-lg">
+          <p className="text-gray-500 dark:text-slate-400 mt-3 text-lg">
             Flexible pricing to match your interview preparation goals.
           </p>
         </div>
@@ -139,8 +140,8 @@ function Pricing() {
 
               className={`relative rounded-3xl p-8 transition-all duration-300 border 
                 ${isSelected
-                  ? "border-emerald-600 shadow-2xl bg-white"
-                  : "border-gray-200 bg-white shadow-md"
+                  ? "border-emerald-600 dark:border-emerald-500 shadow-2xl bg-white dark:bg-[#111622]"
+                  : "border-gray-200 dark:border-slate-800 bg-white dark:bg-[#111622] shadow-md dark:shadow-black/40"
                 }
                 ${plan.default ? "cursor-default" : "cursor-pointer"}
               `}
@@ -155,28 +156,28 @@ function Pricing() {
 
               {/* Default Tag */}
               {plan.default && (
-                <div className="absolute top-6 right-6 bg-gray-200 text-gray-700 text-xs px-3 py-1 rounded-full">
+                <div className="absolute top-6 right-6 bg-gray-200 dark:bg-slate-800 text-gray-700 dark:text-slate-300 text-xs px-3 py-1 rounded-full font-medium">
                   Default
                 </div>
               )}
 
               {/* Plan Name */}
-              <h3 className="text-xl font-semibold text-gray-800">
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                 {plan.name}
               </h3>
 
               {/* Price */}
               <div className="mt-4">
-                <span className="text-3xl font-bold text-emerald-600">
+                <span className="text-3xl font-bold text-emerald-600 dark:text-emerald-400">
                   {plan.price}
                 </span>
-                <p className="text-gray-500 mt-1">
+                <p className="text-gray-500 dark:text-slate-400 mt-1">
                   {plan.credits} Credits
                 </p>
               </div>
 
               {/* Description */}
-              <p className="text-gray-500 mt-4 text-sm leading-relaxed">
+              <p className="text-gray-500 dark:text-slate-400 mt-4 text-sm leading-relaxed">
                 {plan.description}
               </p>
 
@@ -184,8 +185,8 @@ function Pricing() {
               <div className="mt-6 space-y-3 text-left">
                 {plan.features.map((feature, i) => (
                   <div key={i} className="flex items-center gap-3">
-                    <FaCheckCircle className="text-emerald-500 text-sm" />
-                    <span className="text-gray-700 text-sm">
+                    <FaCheckCircle className="text-emerald-500 text-sm shrink-0" />
+                    <span className="text-gray-700 dark:text-slate-300 text-sm">
                       {feature}
                     </span>
                   </div>
@@ -203,8 +204,8 @@ function Pricing() {
                       handlePayment(plan)
                     }
                   }} className={`w-full mt-8 py-3 rounded-xl font-semibold transition ${isSelected
-                    ? "bg-emerald-600 text-white hover:opacity-90"
-                    : "bg-gray-100 text-gray-700 hover:bg-emerald-50"
+                    ? "bg-emerald-600 text-white hover:opacity-90 shadow-lg shadow-emerald-600/30"
+                    : "bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-slate-200 hover:bg-emerald-50 dark:hover:bg-slate-700"
                     }`}>
                   {loadingPlan === plan.id
                     ? "Processing..."
@@ -217,6 +218,10 @@ function Pricing() {
             </motion.div>
           )
         })}
+      </div>
+
+      <div className='mt-20'>
+        <Footer />
       </div>
 
     </div>

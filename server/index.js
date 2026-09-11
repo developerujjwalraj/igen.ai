@@ -37,7 +37,7 @@ app.use("/api/interview" , interviewRouter)
 app.use("/api/payment" , paymentRouter)
 
 app.get("/", (req, res) => {
-    res.send("InterviewIQ Server is running");
+    res.send("igen.ai Server is running");
 });
 
 const PORT = process.env.PORT || 6000

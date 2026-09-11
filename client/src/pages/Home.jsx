@@ -22,6 +22,9 @@ import resumeImg from "../assets/resume.png";
 import pdfImg from "../assets/pdf.png";
 import analyticsImg from "../assets/history.png";
 import Footer from '../components/Footer';
+import AboutUs from '../components/AboutUs';
+import FAQ from '../components/FAQ';
+import CallToAction from '../components/CallToAction';
 
 
 function Home() {
@@ -29,46 +32,60 @@ function Home() {
   const [showAuth, setShowAuth] = useState(false);
   const navigate = useNavigate()
   return (
-    <div className='min-h-screen bg-[#f3f3f3] flex flex-col'>
+    <div className='min-h-screen bg-[#f8fafc] dark:bg-[#07090e] text-gray-900 dark:text-gray-100 flex flex-col transition-colors duration-300 relative overflow-hidden'>
+      {/* Dynamic Ambient Background Aura & Grid */}
+      <div className="fixed inset-0 -z-10 pointer-events-none overflow-hidden">
+        {/* Top center emerald glow orb */}
+        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[950px] h-[550px] bg-emerald-500/12 dark:bg-emerald-500/18 blur-[140px] rounded-full animate-pulse-glow" />
+        {/* Right cyan/teal orb */}
+        <div className="absolute top-[30%] -right-40 w-[650px] h-[650px] bg-teal-500/10 dark:bg-teal-500/12 blur-[160px] rounded-full" />
+        {/* Left emerald orb */}
+        <div className="absolute top-[60%] -left-40 w-[650px] h-[650px] bg-emerald-600/8 dark:bg-emerald-800/15 blur-[160px] rounded-full" />
+        {/* Subtle grid pattern overlay */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800d_1px,transparent_1px),linear-gradient(to_bottom,#8080800d_1px,transparent_1px)] bg-[size:32px_32px] opacity-60 dark:opacity-40" />
+      </div>
+
       <Navbar />
 
-      <div className='flex-1 px-6 py-20'>
+      <div className='flex-1 px-4 sm:px-6 py-16 md:py-24 relative z-10'>
         <div className='max-w-6xl mx-auto'>
 
+          {/* Hero Shimmer Pill Badge */}
           <div className='flex justify-center mb-6'>
-            <div className='bg-gray-100 text-gray-600 text-sm px-4 py-2 rounded-full flex items-center gap-2'>
-              <HiSparkles size={16} className="bg-green-50 text-green-600" />
-              AI Powered Smart Interview Platform
+            <div className='group inline-flex items-center gap-2.5 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md text-gray-700 dark:text-slate-200 text-xs sm:text-sm px-4 py-2 rounded-full border border-emerald-500/30 shadow-md shadow-emerald-500/5 hover:border-emerald-500/60 transition-all'>
+              <span className='flex h-2 w-2 relative'>
+                <span className='animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75'></span>
+                <span className='relative inline-flex rounded-full h-2 w-2 bg-emerald-500'></span>
+              </span>
+              <span className='font-semibold tracking-wide'>
+                Next-Gen AI Interview Coaching Platform
+              </span>
+              <HiSparkles size={16} className="text-emerald-500 group-hover:rotate-12 transition-transform" />
             </div>
-
-
           </div>
-          <div className='text-center mb-28'>
+
+          {/* Hero Header */}
+          <div className='text-center mb-24 md:mb-32'>
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className='text-4xl md:text-6xl font-semibold leading-tight max-w-4xl mx-auto'>
+              className='text-4xl sm:text-5xl md:text-7xl font-extrabold leading-[1.1] max-w-4xl mx-auto text-gray-900 dark:text-white tracking-tight'>
               Practice Interviews with
-              <span className='relative inline-block'>
-                <span className='bg-green-100 text-green-600 px-5 py-1 rounded-full'>
+              <span className='relative block sm:inline-block sm:ml-4 mt-2 sm:mt-0'>
+                <span className='bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-600 bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(16,185,129,0.35)]'>
                   AI Intelligence
-
                 </span>
               </span>
-
-
-
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.8 }}
-              className='text-gray-500 mt-6 max-w-2xl mx-auto text-lg'>
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className='text-gray-600 dark:text-slate-400 mt-6 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed'>
               Role-based mock interviews with smart follow-ups,
-              adaptive difficulty and real-time performance evaluation.
-
+              adaptive difficulty, and real-time speech evaluation tailored to your resume.
             </motion.p>
 
             <div className='flex flex-wrap justify-center gap-4 mt-10'>
@@ -80,11 +97,14 @@ function Home() {
                   }
                   navigate("/interview")
                 }}
-                whileHover={{ opacity: 0.9, scale: 1.03 }}
-                whileTap={{ opacity: 1, scale: 0.98 }}
-                className='bg-black text-white px-10 py-3 rounded-full hover:opacity-90 transition shadow-md'>
-                Start Interview
-
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+                className='relative group overflow-hidden bg-gradient-to-r from-emerald-500 via-emerald-600 to-teal-600 text-white font-bold px-10 py-3.5 rounded-full shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 transition-all cursor-pointer flex items-center gap-2'>
+                <span className='relative z-10 flex items-center gap-2'>
+                  Start Mock Interview
+                  <BsRobot size={18} />
+                </span>
+                <div className='absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300' />
               </motion.button>
 
               <motion.button
@@ -95,128 +115,174 @@ function Home() {
                   }
                   navigate("/history")
                 }}
-                whileHover={{ opacity: 0.9, scale: 1.03 }}
-                whileTap={{ opacity: 1, scale: 0.98 }}
-                className='border border-gray-300 px-10 py-3 rounded-full hover:bg-gray-100 transition'>
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+                className='bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-gray-300 dark:border-slate-700 text-gray-800 dark:text-slate-200 px-10 py-3.5 rounded-full hover:bg-gray-100 dark:hover:bg-slate-800 transition shadow-sm font-semibold cursor-pointer'>
                 View History
-
               </motion.button>
             </div>
           </div>
 
-          <div className='flex flex-col md:flex-row justify-center items-center gap-10 mb-28'>
+          {/* Super Animated Floating 3 Step Cards */}
+          <div className='grid grid-cols-1 md:grid-cols-3 gap-8 mb-32 items-stretch'>
             {
               [
                 {
-                  icon: <BsRobot size={24} />,
-                  step: "STEP 1",
+                  icon: <BsRobot size={26} />,
+                  step: "STEP 01",
                   title: "Role & Experience Selection",
-                  desc: "AI adjusts difficulty based on selected job role."
+                  desc: "Select your target engineering, product, or leadership track. Our AI calibrates problem depth to your exact level.",
+                  tags: ["30+ Roles", "Custom Seniority", "Adaptive AI"],
+                  floatClass: "animate-float-slow",
+                  glowColor: "from-emerald-500/20 to-teal-500/10"
                 },
                 {
-                  icon: <BsMic size={24} />,
-                  step: "STEP 2",
+                  icon: <BsMic size={26} />,
+                  step: "STEP 02",
                   title: "Smart Voice Interview",
-                  desc: "Dynamic follow-up questions based on your answers."
+                  desc: "Speak naturally into your microphone. Our neural speech engine transcribes and grills with authentic follow-ups.",
+                  tags: ["Live Voice STT", "STAR Logic Check", "Tone Analysis"],
+                  floatClass: "animate-float-delayed",
+                  glowColor: "from-teal-500/20 to-cyan-500/10"
                 },
                 {
-                  icon: <BsClock size={24} />,
-                  step: "STEP 3",
+                  icon: <BsClock size={26} />,
+                  step: "STEP 03",
                   title: "Timer Based Simulation",
-                  desc: "Real interview pressure with time tracking."
+                  desc: "Experience real-world pressure with time tracking, answer evaluation, and downloadable performance feedback.",
+                  tags: ["Real Pressure", "Multidim Scoring", "Instant PDF"],
+                  floatClass: "animate-float-delayed-2",
+                  glowColor: "from-emerald-500/20 to-green-500/10"
                 }
               ].map((item, index) => (
-                <motion.div key={index}
-                  initial={{ opacity: 0, y: 60 }}
+                <motion.div 
+                  key={index}
+                  initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6 + index * 0.2 }}
-                  whileHover={{ rotate: 0, scale: 1.06 }}
-
-                  className={`
-        relative bg-white rounded-3xl border-2 border-green-100 
-        hover:border-green-500 p-10 w-80 max-w-[90%] shadow-md hover:shadow-2xl 
-        transition-all duration-300
-        ${index === 0 ? "rotate-[-4deg]" : ""}
-        ${index === 1 ? "rotate-[3deg] md:-mt-6 shadow-xl" : ""}
-        ${index === 2 ? "rotate-[-3deg]" : ""}
-      `}>
-
-                  <div className='absolute -top-8 left-1/2 -translate-x-1/2 bg-white border-2 border-green-500 text-green-600 w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg'>
-                    {item.icon}</div>
-                  <div className='pt-10 text-center'>
-                    <div className='text-xs text-green-600 font-semibold mb-2 tracking-wider'>{item.step}</div>
-                    <h3 className='font-semibold mb-3 text-lg'>{item.title}</h3>
-                    <p className='text-sm text-gray-500 leading-relaxed'>{item.desc}</p>
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.15 }}
+                  whileHover={{ y: -12, scale: 1.02 }}
+                  className={`group relative rounded-[28px] p-8 md:p-9 flex flex-col justify-between 
+                    bg-white/80 dark:bg-[#0e1422]/90 backdrop-blur-xl 
+                    border border-gray-200/80 dark:border-slate-800/90 
+                    hover:border-emerald-500/60 dark:hover:border-emerald-400/60 
+                    shadow-xl dark:shadow-black/60 
+                    hover:shadow-[0_25px_60px_-15px_rgba(16,185,129,0.25)] 
+                    transition-all duration-300 overflow-hidden ${item.floatClass}`}
+                >
+                  {/* Glowing ambient background gradient inside card on hover */}
+                  <div className={`absolute -top-24 -right-24 w-48 h-48 bg-gradient-to-br ${item.glowColor} rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500 pointer-events-none`} />
+                  
+                  {/* Top shimmer sheen line */}
+                  <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-emerald-400/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  
+                  {/* Large futuristic watermark number */}
+                  <div className="absolute top-4 right-6 text-6xl font-black text-gray-200/50 dark:text-slate-800/40 select-none font-sans group-hover:text-emerald-500/20 transition-colors">
+                    0{index + 1}
                   </div>
 
+                  <div className="relative z-10">
+                    {/* Glowing Icon Container with pulse ring */}
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center shadow-lg shadow-emerald-500/30 mb-6 group-hover:scale-110 group-hover:shadow-emerald-500/50 transition-all duration-300 relative">
+                      <div className="absolute inset-0 rounded-2xl bg-emerald-400 animate-ping opacity-25 pointer-events-none" />
+                      {item.icon}
+                    </div>
 
+                    {/* Step pill */}
+                    <div className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200/60 dark:border-emerald-800/60 px-3 py-1 rounded-full mb-3 tracking-wider">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                      {item.step}
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="font-bold text-xl md:text-2xl mb-3 text-gray-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                      {item.title}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-sm text-gray-600 dark:text-slate-400 leading-relaxed mb-6">
+                      {item.desc}
+                    </p>
+                  </div>
+
+                  {/* Micro feature pills at bottom */}
+                  <div className="relative z-10 pt-4 border-t border-gray-100 dark:border-slate-800/80 flex flex-wrap gap-2">
+                    {item.tags.map((tag, tIdx) => (
+                      <span 
+                        key={tIdx} 
+                        className="text-[11px] font-medium px-2.5 py-1 rounded-lg bg-gray-100 dark:bg-slate-800/70 text-gray-600 dark:text-slate-400 border border-transparent dark:border-slate-700/50 group-hover:border-emerald-500/30 group-hover:text-emerald-600 dark:group-hover:text-emerald-300 transition-colors"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </motion.div>
               ))
             }
           </div>
 
 
-          <div className='mb-32'>
+          <div id='features' className='mb-32 scroll-mt-24'>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className='text-4xl font-semibold text-center mb-16'>
+              className='text-4xl font-semibold text-center mb-16 text-gray-900 dark:text-white'>
               Advanced AI{" "}
-              <span className="text-green-600">Capabilities</span>
+              <span className="text-emerald-600 dark:text-emerald-400">Capabilities</span>
 
             </motion.h2>
 
-            <div className='grid md:grid-cols-2 gap-10'>
+            <div className='grid md:grid-cols-2 gap-8 md:gap-10'>
               {
                 [
                   {
                     image: evalImg,
-                    icon: <BsBarChart size={20} />,
+                    icon: <BsBarChart size={22} />,
                     title: "AI Answer Evaluation",
-                    desc: "Scores communication, technical accuracy and confidence."
+                    desc: "Scores communication, technical accuracy, and vocal confidence with actionable feedback."
                   },
                   {
                     image: resumeImg,
-                    icon: <BsFileEarmarkText size={20} />,
+                    icon: <BsFileEarmarkText size={22} />,
                     title: "Resume Based Interview",
-                    desc: "Project-specific questions based on uploaded resume."
+                    desc: "Project-specific grilling based on your uploaded PDF resume and tech stack."
                   },
                   {
                     image: pdfImg,
-                    icon: <BsFileEarmarkText size={20} />,
+                    icon: <BsFileEarmarkText size={22} />,
                     title: "Downloadable PDF Report",
-                    desc: "Detailed strengths, weaknesses and improvement insights."
+                    desc: "Detailed strengths, weaknesses, question scoring, and improvement roadmaps."
                   },
                   {
                     image: analyticsImg,
-                    icon: <BsBarChart size={20} />,
+                    icon: <BsBarChart size={22} />,
                     title: "History & Analytics",
-                    desc: "Track progress with performance graphs and topic analysis."
+                    desc: "Track interview score progression with performance charts and topic drilldowns."
                   }
                 ].map((item, index) => (
                   <motion.div key={index}
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
-                    whileHover={{ scale: 1.02 }}
-                    className='bg-white border border-gray-200 rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all'>
-                    <div className='flex flex-col md:flex-row items-center gap-8'>
+                    whileHover={{ y: -8, scale: 1.01 }}
+                    className='group relative bg-white/80 dark:bg-[#0e1422]/90 backdrop-blur-xl border border-gray-200/80 dark:border-slate-800/90 hover:border-emerald-500/60 dark:hover:border-emerald-400/60 rounded-3xl p-8 shadow-lg dark:shadow-black/50 hover:shadow-[0_20px_50px_-15px_rgba(16,185,129,0.2)] transition-all overflow-hidden'>
+                    <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-emerald-400/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className='flex flex-col md:flex-row items-center gap-8 relative z-10'>
                       <div className='w-full md:w-1/2 flex justify-center'>
-                        <img src={item.image} alt={item.title} className='w-full h-auto object-contain max-h-64' />
+                        <img src={item.image} alt={item.title} className='w-full h-auto object-contain max-h-64 group-hover:scale-105 transition-transform duration-500' />
                       </div>
 
                       <div className='w-full md:w-1/2'>
-                        <div className='bg-green-50 text-green-600 w-12 h-12 rounded-xl flex items-center justify-center mb-6'>
+                        <div className='bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 w-12 h-12 rounded-2xl flex items-center justify-center mb-5 border border-emerald-500/20 group-hover:scale-110 transition-transform'>
                           {item.icon}
                         </div>
-                        <h3 className='font-semibold mb-3 text-xl'>{item.title}</h3>
-                        <p className='text-gray-500 text-sm leading-relaxed'>{item.desc}</p>
+                        <h3 className='font-bold mb-2 text-xl md:text-2xl text-gray-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors'>{item.title}</h3>
+                        <p className='text-gray-600 dark:text-slate-400 text-sm leading-relaxed'>{item.desc}</p>
                       </div>
 
                     </div>
-
-
                   </motion.div>
                 ))
               }
@@ -229,52 +295,52 @@ function Home() {
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className='text-4xl font-semibold text-center mb-16'>
+              className='text-4xl md:text-5xl font-extrabold text-center mb-16 text-gray-900 dark:text-white tracking-tight'>
               Multiple Interview{" "}
-              <span className="text-green-600">Modes</span>
-
+              <span className="text-emerald-600 dark:text-emerald-400">Modes</span>
             </motion.h2>
 
-            <div className='grid md:grid-cols-2 gap-10'>
+            <div className='grid md:grid-cols-2 gap-8 md:gap-10'>
               {
                 [
                   {
                     img: hrImg,
                     title: "HR Interview Mode",
-                    desc: "Behavioral and communication based evaluation."
+                    desc: "Behavioral, leadership, and communication-based evaluation using the STAR technique."
                   },
                   {
                     img: techImg,
                     title: "Technical Mode",
-                    desc: "Deep technical questioning based on selected role."
+                    desc: "Deep algorithmic, system architecture, and domain-specific questioning based on your role."
                   },
-
                   {
                     img: confidenceImg,
                     title: "Confidence Detection",
-                    desc: "Basic tone and voice analysis insights."
+                    desc: "Voice tonality, delivery pacing, and hesitation analysis insights."
                   },
                   {
                     img: creditImg,
                     title: "Credits System",
-                    desc: "Unlock premium interview sessions easily."
+                    desc: "Seamless session management with starter credits and transparent top-ups."
                   }
                 ].map((mode, index) => (
                   <motion.div key={index}
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
-                    whileHover={{ y: -6 }}
-                    className="bg-white border border-gray-200 rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all">
-
-                    <div className='flex items-center justify-between gap-6'>
+                    whileHover={{ y: -8, scale: 1.02 }}
+                    className="group relative bg-white/80 dark:bg-[#0e1422]/90 backdrop-blur-xl border border-gray-200/80 dark:border-slate-800/90 hover:border-emerald-500/60 dark:hover:border-emerald-400/60 rounded-3xl p-8 shadow-lg dark:shadow-black/50 hover:shadow-[0_20px_50px_-15px_rgba(16,185,129,0.2)] transition-all overflow-hidden">
+                    <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-emerald-400/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className='flex items-center justify-between gap-6 relative z-10'>
                       <div className="w-1/2">
-                        <h3 className="font-semibold text-xl mb-3">
+                        <h3 className="font-bold text-xl md:text-2xl mb-3 text-gray-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
                           {mode.title}
                         </h3>
 
-                        <p className="text-gray-500 text-sm leading-relaxed">
+                        <p className="text-gray-600 dark:text-slate-400 text-sm leading-relaxed">
                           {mode.desc}
                         </p>
                       </div>
@@ -284,15 +350,10 @@ function Home() {
                         <img
                           src={mode.img}
                           alt={mode.title}
-                          className="w-28 h-28 object-contain"
+                          className="w-28 h-28 object-contain group-hover:scale-110 transition-transform duration-500"
                         />
                       </div>
-
-
-
                     </div>
-
-
                   </motion.div>
                 ))
               }
@@ -301,12 +362,21 @@ function Home() {
 
           </div>
 
+          {/* About Us Section */}
+          <AboutUs />
+
+          {/* Frequently Asked Questions */}
+          <FAQ />
+
+          {/* Call To Action Banner */}
+          <CallToAction onOpenAuth={() => setShowAuth(true)} />
+
         </div>
       </div>
 
       {showAuth && <AuthModel onClose={() => setShowAuth(false)} />}
 
-        <Footer/>
+      <Footer onOpenAuth={() => setShowAuth(true)} />
 
     </div>
   )
