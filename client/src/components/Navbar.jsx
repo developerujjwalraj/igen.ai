@@ -61,6 +61,15 @@ function Navbar() {
                 <button onClick={() => handleNav('#about')} className='hover:text-emerald-600 dark:hover:text-emerald-400 transition cursor-pointer'>About Us</button>
                 <button onClick={() => handleNav('#faq')} className='hover:text-emerald-600 dark:hover:text-emerald-400 transition cursor-pointer'>FAQ</button>
                 <button onClick={() => navigate('/pricing')} className='hover:text-emerald-600 dark:hover:text-emerald-400 transition cursor-pointer'>Pricing</button>
+                <button 
+                    onClick={() => navigate('/ats-check')} 
+                    className='text-emerald-600 dark:text-emerald-400 font-semibold hover:opacity-80 transition cursor-pointer flex items-center gap-1.5'
+                >
+                    Check ATS
+                    <span className='px-1.5 py-0.5 text-[10px] rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800'>
+                        New
+                    </span>
+                </button>
             </div>
 
             <div className='flex items-center gap-4 md:gap-6 relative'>
@@ -137,7 +146,8 @@ function Navbar() {
                         <div className='absolute right-0 mt-3 w-48 bg-white dark:bg-[#161f30] shadow-xl border border-gray-200 dark:border-slate-700 rounded-xl p-4 z-50'>
                             <p className='text-md text-emerald-600 dark:text-emerald-400 font-medium mb-1 truncate'>{userData?.name}</p>
 
-                            <button onClick={()=>navigate("/history")} className='w-full text-left text-sm py-2 hover:text-black dark:hover:text-white text-gray-600 dark:text-slate-300 transition'>InterView History</button>
+                            <button onClick={()=>{ setShowUserPopup(false); navigate("/ats-check"); }} className='w-full text-left text-sm py-2 hover:text-black dark:hover:text-white text-gray-600 dark:text-slate-300 transition'>Check ATS Score</button>
+                            <button onClick={()=>{ setShowUserPopup(false); navigate("/history"); }} className='w-full text-left text-sm py-2 hover:text-black dark:hover:text-white text-gray-600 dark:text-slate-300 transition'>InterView History</button>
                             <button onClick={handleLogout} 
                             className='w-full text-left text-sm py-2 flex items-center gap-2 text-red-500 dark:text-red-400 hover:opacity-90 transition'>
                                 <HiOutlineLogout size={16}/>

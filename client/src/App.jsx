@@ -10,6 +10,7 @@ import InterviewPage from './pages/InterviewPage'
 import InterviewHistory from './pages/InterviewHistory'
 import Pricing from './pages/Pricing'
 import InterviewReport from './pages/InterviewReport'
+import AtsCheckPage from './pages/AtsCheckPage'
 
 export const ServerUrl = import.meta.env.VITE_SERVER_URL || "http://localhost:8000"
 
@@ -37,8 +38,7 @@ function App() {
       <Route path='/history' element={<InterviewHistory/>}/>
       <Route path='/pricing' element={<Pricing/>}/>
       <Route path='/report/:id' element={<InterviewReport/>}/>
-
-
+      <Route path='/ats-check' element={<AtsCheckPage/>}/>
 
     </Routes>
   )
