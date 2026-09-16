@@ -64,18 +64,39 @@ function Navbar() {
             </div>
 
             <div className='flex items-center gap-4 md:gap-6 relative'>
-                {/* Theme Toggle Button */}
+                {/* Slide Dark/Light Mode Switch (Framer Motion) */}
                 <button
                     onClick={toggleTheme}
-                    aria-label="Toggle Theme"
+                    role="switch"
+                    aria-checked={theme === 'dark'}
+                    aria-label="Toggle dark and light mode"
                     title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-                    className='p-2.5 rounded-full bg-gray-100 dark:bg-slate-800/80 text-gray-700 dark:text-amber-300 hover:bg-gray-200 dark:hover:bg-slate-700 transition-all border border-gray-200 dark:border-slate-700 flex items-center justify-center'
+                    className={`relative w-14 h-8 rounded-full p-1 cursor-pointer flex items-center border transition-colors duration-300 ${
+                        theme === 'dark' 
+                            ? 'bg-slate-800 border-slate-700' 
+                            : 'bg-amber-100 border-amber-300'
+                    }`}
                 >
-                    {theme === 'dark' ? (
-                        <BsSun size={18} className="text-amber-400 drop-shadow-[0_0_8px_rgba(251,191,36,0.5)]" />
-                    ) : (
-                        <BsMoonStars size={18} className="text-slate-700" />
-                    )}
+                    {/* Background Track Icons */}
+                    <div className="absolute inset-0 flex justify-between items-center px-2 pointer-events-none">
+                        <BsSun size={13} className="text-amber-500" />
+                        <BsMoonStars size={12} className="text-slate-400" />
+                    </div>
+
+                    {/* Sliding Knob */}
+                    <motion.div
+                        animate={{ x: theme === 'dark' ? 24 : 0 }}
+                        transition={{ type: "spring", stiffness: 500, damping: 28 }}
+                        className={`w-6 h-6 rounded-full shadow-md flex items-center justify-center z-10 ${
+                            theme === 'dark' ? 'bg-slate-900 text-amber-300' : 'bg-white text-amber-500'
+                        }`}
+                    >
+                        {theme === 'dark' ? (
+                            <BsMoonStars size={12} className="drop-shadow-[0_0_6px_rgba(251,191,36,0.4)]" />
+                        ) : (
+                            <BsSun size={13} />
+                        )}
+                    </motion.div>
                 </button>
 
                 <div className='relative'>
