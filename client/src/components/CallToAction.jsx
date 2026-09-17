@@ -35,7 +35,7 @@ function CallToAction({ onOpenAuth }) {
               Ready to Ace Your Next Tech Interview?
             </h2>
             <p className='text-emerald-50 text-base md:text-lg leading-relaxed max-w-xl'>
-              Practice with AI tailored to your target role, refine your delivery with real-time feedback, and land the job offer you deserve.
+              Scan your resume with our AI ATS Checker, practice with role-tailored voice simulations, and land the job offer you deserve.
             </p>
           </div>
 
@@ -44,16 +44,27 @@ function CallToAction({ onOpenAuth }) {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
               onClick={handleStart}
-              className='bg-black text-white hover:bg-slate-900 font-bold px-8 py-4 rounded-full shadow-lg flex items-center justify-center gap-2 text-base transition-all cursor-pointer'
+              className='bg-black text-white hover:bg-slate-900 font-bold px-7 py-4 rounded-full shadow-lg flex items-center justify-center gap-2 text-base transition-all cursor-pointer'
             >
-              Start Free Mock Interview
+              Start Mock Interview
               <BsArrowRight size={18} />
             </motion.button>
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
+              onClick={() => navigate("/ats-check")}
+              className='bg-white text-emerald-900 hover:bg-emerald-50 font-bold px-6 py-4 rounded-full shadow-lg flex items-center justify-center gap-2 text-base transition-all cursor-pointer'
+            >
+              Check ATS Score
+              <span className='text-[10px] bg-emerald-600 text-white px-2 py-0.5 rounded-full font-bold uppercase'>
+                New
+              </span>
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
               onClick={() => navigate("/pricing")}
-              className='bg-white/15 backdrop-blur-md border border-white/30 hover:bg-white/25 text-white font-semibold px-7 py-4 rounded-full flex items-center justify-center text-base transition-all cursor-pointer'
+              className='bg-white/15 backdrop-blur-md border border-white/30 hover:bg-white/25 text-white font-semibold px-6 py-4 rounded-full flex items-center justify-center text-base transition-all cursor-pointer'
             >
               Explore Plans
             </motion.button>

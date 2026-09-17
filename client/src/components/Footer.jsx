@@ -35,11 +35,16 @@ function Footer({ onOpenAuth }) {
         <div className='flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-gray-100 dark:border-slate-800/80'>
           
           {/* Brand Info */}
-          <div className='flex items-center gap-3 cursor-pointer group' onClick={scrollToTop}>
-            <img src="/favicon.png" alt="igen.ai logo" className='w-9 h-9 rounded-xl shadow-md group-hover:scale-105 transition-transform' />
-            <h2 className='font-bold text-2xl text-gray-900 dark:text-white tracking-tight'>
-              igen.ai
-            </h2>
+          <div className='flex flex-col items-center md:items-start gap-1'>
+            <div className='flex items-center gap-3 cursor-pointer group' onClick={scrollToTop}>
+              <img src="/favicon.png" alt="igen.ai logo" className='w-9 h-9 rounded-xl shadow-md group-hover:scale-105 transition-transform' />
+              <h2 className='font-bold text-2xl text-gray-900 dark:text-white tracking-tight'>
+                igen.ai
+              </h2>
+            </div>
+            <p className='text-xs text-gray-500 dark:text-slate-400 mt-1 text-center md:text-left'>
+              AI Voice Mock Interviews & ATS Resume Scoring
+            </p>
           </div>
 
           {/* Platform Navigation */}
@@ -55,6 +60,15 @@ function Footer({ onOpenAuth }) {
               className='hover:text-emerald-600 dark:hover:text-emerald-400 transition cursor-pointer'
             >
               Mock Interview
+            </button>
+            <button 
+              onClick={() => navigate('/ats-check')}
+              className='text-emerald-600 dark:text-emerald-400 font-semibold hover:opacity-80 transition cursor-pointer flex items-center gap-1.5'
+            >
+              ATS Resume Check
+              <span className='px-1.5 py-0.5 text-[10px] font-bold rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800'>
+                New
+              </span>
             </button>
             <button 
               onClick={() => handleNavClick('#about')}

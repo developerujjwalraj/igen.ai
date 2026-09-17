@@ -7,13 +7,38 @@ function FAQ() {
   const [openIndex, setOpenIndex] = useState(0)
   const [selectedCategory, setSelectedCategory] = useState("All")
 
-  const categories = ["All", "General", "Interview Flow", "Credits & Pricing", "Privacy"]
+  const categories = ["All", "ATS Resume Check", "General", "Interview Flow", "Credits & Pricing", "Privacy"]
 
   const faqs = [
     {
+      category: "ATS Resume Check",
+      question: "What is the new ATS Resume Checker and how does it work?",
+      answer: "Our new AI ATS (Applicant Tracking System) Checker analyzes your PDF resume against real-world recruiter screening algorithms and your target job title or custom Job Description. It generates an overall compatibility score (0–100%), highlights matched keywords, pinpoints critical missing technical competencies, checks layout parseability, and provides tailored recommendations to beat automated screening bots."
+    },
+    {
+      category: "ATS Resume Check",
+      question: "How do I match my resume against a specific Job Description (JD)?",
+      answer: "Navigate to the 'Check ATS' page, upload your PDF resume, and paste the job description from LinkedIn, Indeed, or any employer portal. Our AI extracts core requirements line-by-line and compares them with your resume to reveal your exact keyword match percentage and critical missing skills."
+    },
+    {
+      category: "ATS Resume Check",
+      question: "How many credits does an ATS Resume Check cost?",
+      answer: "Running a complete ATS Resume Audit costs 30 credits per scan. Every new user receives free starter credits upon signup, which you can use right away to optimize your resume before practicing for interviews."
+    },
+    {
+      category: "ATS Resume Check",
+      question: "What insights and metrics are included in the ATS report?",
+      answer: "Your ATS report includes an Overall Compatibility Score, Match Level rating (High, Moderate, Low), Executive Summary, Matched Keywords, Missing Critical Keywords, Formatting Parseability checks (fonts, contact info, section hierarchy), identified Strengths, and prioritized Action Items for improvement."
+    },
+    {
+      category: "ATS Resume Check",
+      question: "Can I download the ATS audit report as a PDF?",
+      answer: "Yes! Once your ATS check finishes, simply click 'Download Report' to generate a clean, executive PDF audit dossier that summarizes your score, keyword analysis, and recruiter recommendations."
+    },
+    {
       category: "General",
       question: "What is igen.ai and how does it work?",
-      answer: "igen.ai is an intelligent interview preparation platform powered by conversational AI. It simulates authentic mock interviews with dynamic follow-up questions, speech evaluation, real-time timer pressure, and deep rubrics covering technical accuracy, confidence, and articulation."
+      answer: "igen.ai is an intelligent interview preparation platform powered by conversational AI. It combines bot-beating ATS resume auditing with authentic mock interviews, dynamic follow-up questions, speech evaluation, real-time timer pressure, and deep rubrics covering technical accuracy, confidence, and articulation."
     },
     {
       category: "Interview Flow",
@@ -33,12 +58,12 @@ function FAQ() {
     {
       category: "Credits & Pricing",
       question: "How do interview credits work?",
-      answer: "Every new user receives free starter credits upon signing up. Each complete mock interview session consumes credits. You can easily replenish your credits anytime from the Pricing page via our secure Razorpay checkout."
+      answer: "Every new user receives free starter credits upon signing up. Mock interview sessions and ATS resume scans (30 credits) consume credits. You can easily replenish your credits anytime from the Pricing page via our secure Razorpay checkout."
     },
     {
       category: "Privacy",
       question: "Is my resume and audio data kept private and secure?",
-      answer: "Absolutely. Your resume is parsed strictly to generate relevant questions during your active session, and your microphone input is processed directly without selling or sharing personal identifiable information with any third parties."
+      answer: "Absolutely. Your resume is parsed strictly to evaluate ATS compatibility or generate relevant interview questions during your active session. We never sell or share your personal documents or data with third parties."
     },
     {
       category: "General",

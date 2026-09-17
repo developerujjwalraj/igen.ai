@@ -17,8 +17,8 @@ function AboutUs() {
     },
     {
       icon: <BsShieldCheck size={22} />,
-      title: "Resume-Driven Deep Dives",
-      desc: "Upload your PDF resume to have our AI extract your actual tech stack, claims, and past project milestones, putting your real credentials to the test before your big interview."
+      title: "ATS Optimization & Resume Deep Dives",
+      desc: "Audit your CV with our new AI ATS Checker to beat bot filters before your interview. Our system extracts your tech stack, identifies JD keyword gaps, and tests your real credentials in voice simulations."
     },
     {
       icon: <BsGraphUpArrow size={22} />,

@@ -50,9 +50,18 @@ function Navbar() {
         animate={{opacity:1 , y:0}}
         transition={{duration: 0.3}}
         className='w-full max-w-6xl bg-white dark:bg-[#111622] rounded-[24px] shadow-sm dark:shadow-black/40 border border-gray-200 dark:border-slate-800 px-8 py-4 flex justify-between items-center relative transition-colors duration-200'>
-            <div onClick={() => navigate("/")} className='flex items-center gap-3 cursor-pointer group'>
-                <img src="/favicon.png" alt="igen.ai logo" className='w-9 h-9 rounded-xl shadow-md group-hover:scale-105 transition-transform' />
-                <h1 className='font-bold hidden md:block text-lg text-gray-900 dark:text-white tracking-tight'>igen.ai</h1>
+            <div className='flex items-center gap-2.5'>
+                <div onClick={() => navigate("/")} className='flex items-center gap-3 cursor-pointer group'>
+                    <img src="/favicon.png" alt="igen.ai logo" className='w-9 h-9 rounded-xl shadow-md group-hover:scale-105 transition-transform' />
+                    <h1 className='font-bold hidden md:block text-lg text-gray-900 dark:text-white tracking-tight'>igen.ai</h1>
+                </div>
+                <button 
+                    onClick={() => navigate('/ats-check')}
+                    className='lg:hidden text-xs font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/70 border border-emerald-300 dark:border-emerald-800 px-2.5 py-1 rounded-full flex items-center gap-1 cursor-pointer hover:opacity-90'
+                >
+                    ATS
+                    <span className='px-1 text-[9px] font-bold rounded-full bg-emerald-500 text-white'>New</span>
+                </button>
             </div>
 
             {/* Desktop Navigation Links */}

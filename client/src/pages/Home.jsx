@@ -7,7 +7,10 @@ import {
   BsMic,
   BsClock,
   BsBarChart,
-  BsFileEarmarkText
+  BsFileEarmarkText,
+  BsFileEarmarkCheck,
+  BsArrowRight,
+  BsCheckCircleFill
 } from "react-icons/bs";
 import { HiSparkles } from "react-icons/hi";
 import { useNavigate } from 'react-router-dom';
@@ -21,6 +24,7 @@ import evalImg from "../assets/ai-ans.png";
 import resumeImg from "../assets/resume.png";
 import pdfImg from "../assets/pdf.png";
 import analyticsImg from "../assets/history.png";
+import atsFeatureImg from "../assets/ats-feature.png";
 import Footer from '../components/Footer';
 import AboutUs from '../components/AboutUs';
 import FAQ from '../components/FAQ';
@@ -50,17 +54,17 @@ function Home() {
       <div className='flex-1 px-4 sm:px-6 py-16 md:py-24 relative z-10'>
         <div className='max-w-6xl mx-auto'>
 
-          {/* Hero Shimmer Pill Badge */}
-          <div className='flex justify-center mb-6'>
-            <div className='group inline-flex items-center gap-2.5 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md text-gray-700 dark:text-slate-200 text-xs sm:text-sm px-4 py-2 rounded-full border border-emerald-500/30 shadow-md shadow-emerald-500/5 hover:border-emerald-500/60 transition-all'>
+          {/* Hero Announcement Badges */}
+          <div className='flex justify-center items-center mb-6'>
+            <div className='inline-flex items-center gap-2.5 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md text-gray-700 dark:text-slate-200 text-xs sm:text-sm px-4 py-2 rounded-full border border-emerald-500/30 shadow-md shadow-emerald-500/5'>
               <span className='flex h-2 w-2 relative'>
                 <span className='animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75'></span>
                 <span className='relative inline-flex rounded-full h-2 w-2 bg-emerald-500'></span>
               </span>
               <span className='font-semibold tracking-wide'>
-                Next-Gen AI Interview Coaching Platform
+                Next-Gen AI Interview Coaching
               </span>
-              <HiSparkles size={16} className="text-emerald-500 group-hover:rotate-12 transition-transform" />
+              <HiSparkles size={16} className="text-emerald-500" />
             </div>
           </div>
 
@@ -84,11 +88,10 @@ function Home() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               className='text-gray-600 dark:text-slate-400 mt-6 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed'>
-              Role-based mock interviews with smart follow-ups,
-              adaptive difficulty, and real-time speech evaluation tailored to your resume.
+              Audit your resume with our new AI ATS Checker, then simulate role-based mock interviews with smart follow-ups, adaptive difficulty, and real-time speech evaluation.
             </motion.p>
 
-            <div className='flex flex-wrap justify-center gap-4 mt-10'>
+            <div className='flex flex-wrap justify-center items-center gap-4 mt-10'>
               <motion.button
                 onClick={() => {
                   if (!userData) {
@@ -99,12 +102,24 @@ function Home() {
                 }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
-                className='relative group overflow-hidden bg-gradient-to-r from-emerald-500 via-emerald-600 to-teal-600 text-white font-bold px-10 py-3.5 rounded-full shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 transition-all cursor-pointer flex items-center gap-2'>
+                className='relative group overflow-hidden bg-gradient-to-r from-emerald-500 via-emerald-600 to-teal-600 text-white font-bold px-8 py-3.5 rounded-full shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 transition-all cursor-pointer flex items-center gap-2'>
                 <span className='relative z-10 flex items-center gap-2'>
                   Start Mock Interview
                   <BsRobot size={18} />
                 </span>
                 <div className='absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300' />
+              </motion.button>
+
+              <motion.button
+                onClick={() => navigate("/ats-check")}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+                className='relative group overflow-hidden bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-emerald-500/50 hover:border-emerald-500 text-emerald-700 dark:text-emerald-300 font-bold px-7 py-3.5 rounded-full shadow-md shadow-emerald-500/10 hover:shadow-emerald-500/20 transition-all cursor-pointer flex items-center gap-2'>
+                <BsFileEarmarkCheck size={18} className="text-emerald-500" />
+                <span>Check ATS Score</span>
+                <span className='px-1.5 py-0.5 text-[10px] uppercase font-extrabold bg-emerald-500 text-white rounded-full'>
+                  New
+                </span>
               </motion.button>
 
               <motion.button
@@ -117,7 +132,7 @@ function Home() {
                 }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
-                className='bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-gray-300 dark:border-slate-700 text-gray-800 dark:text-slate-200 px-10 py-3.5 rounded-full hover:bg-gray-100 dark:hover:bg-slate-800 transition shadow-sm font-semibold cursor-pointer'>
+                className='bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-gray-300 dark:border-slate-700 text-gray-800 dark:text-slate-200 px-7 py-3.5 rounded-full hover:bg-gray-100 dark:hover:bg-slate-800 transition shadow-sm font-semibold cursor-pointer'>
                 View History
               </motion.button>
             </div>
@@ -223,15 +238,99 @@ function Home() {
 
 
           <div id='features' className='mb-32 scroll-mt-24'>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className='text-4xl font-semibold text-center mb-16 text-gray-900 dark:text-white'>
-              Advanced AI{" "}
-              <span className="text-emerald-600 dark:text-emerald-400">Capabilities</span>
+            <div className='text-center max-w-3xl mx-auto mb-16'>
+              <div className='inline-flex items-center gap-2 bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/60 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider mb-4'>
+                <HiSparkles size={14} />
+                Feature Suite
+              </div>
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className='text-3xl md:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight'>
+                Advanced AI{" "}
+                <span className="text-emerald-600 dark:text-emerald-400">Capabilities</span>
+              </motion.h2>
+              <p className='mt-4 text-gray-600 dark:text-slate-400 text-base md:text-lg'>
+                From bot-beating ATS resume screening to realistic mock interviews with speech evaluation.
+              </p>
+            </div>
 
-            </motion.h2>
+            {/* ATS Resume Checker Spotlight Banner */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="relative mb-12 rounded-[32px] p-8 sm:p-12 overflow-hidden bg-gradient-to-br from-emerald-950/50 via-[#0e1422] to-slate-900/90 dark:from-[#06151a] dark:via-[#0c1421] dark:to-[#08101a] border border-emerald-500/40 shadow-2xl shadow-emerald-500/10 backdrop-blur-xl group"
+            >
+              {/* Ambient glowing radial effects */}
+              <div className="absolute -top-24 -right-24 w-96 h-96 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none group-hover:scale-110 transition-transform duration-700" />
+              <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-teal-500/15 rounded-full blur-3xl pointer-events-none" />
+
+              <div className="relative z-10 flex flex-col lg:flex-row items-center gap-10 lg:gap-14">
+                {/* Left Column: Information, Tags, & CTA */}
+                <div className="w-full lg:w-3/5 space-y-6">
+                  <div className="inline-flex items-center gap-2 bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wide uppercase shadow-sm">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                    New Flagship Feature
+                  </div>
+
+                  <h3 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight">
+                    AI ATS Resume Checker & <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-500 bg-clip-text text-transparent">Job Match Audit</span>
+                  </h3>
+
+                  <p className="text-gray-300 dark:text-slate-300 text-base sm:text-lg leading-relaxed">
+                    Over 75% of resumes are filtered out by Applicant Tracking Systems before a recruiter reads them. Scan your CV against any job title or custom Job Description, detect missing keywords, check parseability, and get an instant ATS score.
+                  </p>
+
+                  {/* Feature Bullet Badges */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
+                    <div className="flex items-center gap-2.5 text-sm text-gray-200">
+                      <BsCheckCircleFill className="text-emerald-400 shrink-0" size={16} />
+                      <span>Real-time ATS Match Score (0–100%)</span>
+                    </div>
+                    <div className="flex items-center gap-2.5 text-sm text-gray-200">
+                      <BsCheckCircleFill className="text-emerald-400 shrink-0" size={16} />
+                      <span>JD Keyword & Skill Gap Analysis</span>
+                    </div>
+                    <div className="flex items-center gap-2.5 text-sm text-gray-200">
+                      <BsCheckCircleFill className="text-emerald-400 shrink-0" size={16} />
+                      <span>ATS Formatting & Parseability Check</span>
+                    </div>
+                    <div className="flex items-center gap-2.5 text-sm text-gray-200">
+                      <BsCheckCircleFill className="text-emerald-400 shrink-0" size={16} />
+                      <span>Instant Downloadable PDF Audit Dossier</span>
+                    </div>
+                  </div>
+
+                  <div className="pt-4 flex flex-wrap items-center gap-4">
+                    <button
+                      onClick={() => navigate("/ats-check")}
+                      className="relative group overflow-hidden bg-gradient-to-r from-emerald-500 via-emerald-600 to-teal-600 text-white font-bold px-8 py-3.5 rounded-full shadow-lg shadow-emerald-500/30 hover:shadow-emerald-500/50 hover:scale-105 active:scale-95 transition-all cursor-pointer flex items-center gap-2.5"
+                    >
+                      <span>Check Your ATS</span>
+                      <BsArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                    </button>
+                    <span className="text-xs text-gray-400">
+                      ⚡ 30 credits per comprehensive audit • Instant PDF export
+                    </span>
+                  </div>
+                </div>
+
+                {/* Right Column: Generated 3D Asset Preview */}
+                <div className="w-full lg:w-2/5 flex justify-center">
+                  <div className="relative group/img cursor-pointer" onClick={() => navigate("/ats-check")}>
+                    <div className="absolute -inset-2 bg-gradient-to-r from-emerald-500/30 to-teal-500/30 rounded-3xl blur-xl opacity-75 group-hover/img:opacity-100 transition duration-500" />
+                    <img
+                      src={atsFeatureImg}
+                      alt="AI ATS Resume Scanner & Keyword Match Audit"
+                      className="relative rounded-2xl border border-emerald-500/30 shadow-2xl object-cover w-full max-w-md aspect-square group-hover/img:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                </div>
+              </div>
+            </motion.div>
 
             <div className='grid md:grid-cols-2 gap-8 md:gap-10'>
               {
