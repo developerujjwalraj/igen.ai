@@ -6,6 +6,8 @@ import {
     FaFileUpload,
     FaMicrophoneAlt,
     FaChartLine,
+    FaFilePdf,
+    FaExternalLinkAlt,
 } from "react-icons/fa";
 import { useState } from 'react';
 import axios from "axios"
@@ -27,6 +29,16 @@ function Step1SetUp({ onStart }) {
     const [analyzing, setAnalyzing] = useState(false);
 
 
+    const handleUseSavedResume = () => {
+        if (!userData?.resume) return;
+        if (userData.resume.role) setRole(userData.resume.role);
+        if (userData.resume.experience) setExperience(userData.resume.experience);
+        if (userData.resume.projects && userData.resume.projects.length) setProjects(userData.resume.projects);
+        if (userData.resume.skills && userData.resume.skills.length) setSkills(userData.resume.skills);
+        if (userData.resume.text) setResumeText(userData.resume.text);
+        setAnalysisDone(true);
+    };
+
     const handleUploadResume = async () => {
         if (!resumeFile || analyzing) return;
         setAnalyzing(true)
@@ -47,6 +59,21 @@ function Step1SetUp({ onStart }) {
             setAnalysisDone(true);
 
             setAnalyzing(false);
+
+            if (userData) {
+                dispatch(setUserData({
+                    ...userData,
+                    resume: {
+                        filename: result.data.filename || (resumeFile ? resumeFile.name : "resume.pdf"),
+                        role: result.data.role,
+                        experience: result.data.experience,
+                        projects: result.data.projects,
+                        skills: result.data.skills,
+                        text: result.data.resumeText,
+                        updatedAt: new Date().toISOString()
+                    }
+                }));
+            }
 
         } catch (error) {
             console.log(error)
@@ -172,6 +199,43 @@ function Step1SetUp({ onStart }) {
 
                         </select>
 
+                        {userData?.resume?.filename && !analysisDone && (
+                            <div className="bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/60 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-sm">
+                                <div className="flex items-center gap-3">
+                                    <div className="p-2.5 bg-white dark:bg-slate-900 rounded-lg border border-emerald-100 dark:border-emerald-900 shadow-sm">
+                                        <FaFilePdf className="text-red-500 text-xl" />
+                                    </div>
+                                    <div>
+                                        <p className="text-xs uppercase tracking-wider font-semibold text-emerald-700 dark:text-emerald-400">
+                                            Saved in Database
+                                        </p>
+                                        <p className="text-sm font-medium text-gray-800 dark:text-slate-200 truncate max-w-[200px] sm:max-w-xs">
+                                            {userData.resume.filename}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-2 w-full sm:w-auto">
+                                    <button
+                                        type="button"
+                                        onClick={handleUseSavedResume}
+                                        className="flex-1 sm:flex-initial text-xs bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-3.5 py-2 rounded-lg transition shadow-sm"
+                                    >
+                                        Use Saved Resume
+                                    </button>
+                                    <a
+                                        href={`${ServerUrl}/api/user/resume`}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="text-xs bg-white dark:bg-slate-900 text-gray-700 dark:text-slate-300 border border-gray-200 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-800 px-3 py-2 rounded-lg transition inline-flex items-center gap-1.5"
+                                        title="View saved PDF"
+                                    >
+                                        <FaExternalLinkAlt className="text-[10px]" />
+                                        View
+                                    </a>
+                                </div>
+                            </div>
+                        )}
+
                         {!analysisDone && (
                             <motion.div
                                 whileHover={{ scale: 1.02 }}
@@ -187,7 +251,7 @@ function Step1SetUp({ onStart }) {
                                     onChange={(e) => setResumeFile(e.target.files[0])} />
 
                                 <p className='text-gray-600 dark:text-slate-300 font-medium'>
-                                    {resumeFile ? resumeFile.name : "Click to upload resume (Optional)"}
+                                    {resumeFile ? resumeFile.name : (userData?.resume?.filename ? "Click to upload a new resume" : "Click to upload resume (Optional)")}
                                 </p>
 
                                 {resumeFile && (
@@ -243,6 +307,22 @@ function Step1SetUp({ onStart }) {
                                         </div>
                                     </div>
                                 )}
+
+                                <div className="flex justify-between items-center pt-2 border-t border-gray-200 dark:border-slate-800 text-xs text-gray-500 dark:text-slate-400">
+                                    <span className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-medium">
+                                        ✓ Resume saved in database
+                                    </span>
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            setAnalysisDone(false);
+                                            setResumeFile(null);
+                                        }}
+                                        className="hover:text-emerald-600 underline"
+                                    >
+                                        Change resume
+                                    </button>
+                                </div>
 
                             </motion.div>
                         )}
