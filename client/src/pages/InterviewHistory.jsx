@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from "axios"
 import { ServerUrl } from '../App'
-import { FaArrowLeft, FaFilePdf } from 'react-icons/fa'
+import { FaArrowLeft } from 'react-icons/fa'
 import Footer from '../components/Footer'
 function InterviewHistory() {
     const [interviews, setInterviews] = useState([])
@@ -72,24 +72,9 @@ function InterviewHistory() {
                                             {item.experience} • {item.mode}
                                         </p>
 
-                                        <div className="flex items-center gap-3 mt-2 flex-wrap">
-                                            <p className="text-xs text-gray-400 dark:text-slate-500">
-                                                {new Date(item.createdAt).toLocaleDateString()}
-                                            </p>
-                                            {item.resumeFile?.filename && (
-                                                <a
-                                                    href={`${ServerUrl}/api/interview/resume/${item._id}`}
-                                                    target="_blank"
-                                                    rel="noreferrer"
-                                                    onClick={(e) => e.stopPropagation()}
-                                                    className="inline-flex items-center gap-1.5 px-2.5 py-0.5 text-xs font-medium rounded-md bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/60 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition"
-                                                    title="View resume PDF used for this interview"
-                                                >
-                                                    <FaFilePdf className="text-red-500 text-[11px]" />
-                                                    {item.resumeFile.filename}
-                                                </a>
-                                            )}
-                                        </div>
+                                        <p className="text-xs text-gray-400 dark:text-slate-500 mt-2">
+                                            {new Date(item.createdAt).toLocaleDateString()}
+                                        </p>
                                     </div>
 
                                     <div className='flex items-center gap-6'>

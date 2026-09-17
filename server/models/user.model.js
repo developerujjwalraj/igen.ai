@@ -13,18 +13,6 @@ const userSchema = new mongoose.Schema({
     credits:{
         type:Number,
         default:100
-    },
-    resume: {
-        data: { type: Buffer },
-        contentType: { type: String, default: "application/pdf" },
-        filename: { type: String },
-        size: { type: Number },
-        text: { type: String },
-        role: { type: String },
-        experience: { type: String },
-        projects: [{ type: String }],
-        skills: [{ type: String }],
-        updatedAt: { type: Date, default: Date.now }
     }
 
 }, {timestamps:true})

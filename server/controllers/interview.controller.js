@@ -59,24 +59,6 @@ Return strictly JSON:
 
     const parsed = JSON.parse(aiResponse);
 
-    // Save resume binary buffer and parsed details into User document
-    if (req.userId) {
-      await User.findByIdAndUpdate(req.userId, {
-        resume: {
-          data: fileBuffer,
-          contentType: req.file.mimetype || "application/pdf",
-          filename: req.file.originalname,
-          size: req.file.size || fileBuffer.length,
-          text: resumeText,
-          role: parsed.role || "",
-          experience: parsed.experience || "",
-          projects: Array.isArray(parsed.projects) ? parsed.projects : [],
-          skills: Array.isArray(parsed.skills) ? parsed.skills : [],
-          updatedAt: new Date()
-        }
-      });
-    }
-
     fs.unlinkSync(filepath)
 
 
@@ -85,8 +67,7 @@ Return strictly JSON:
       experience: parsed.experience,
       projects: parsed.projects,
       skills: parsed.skills,
-      resumeText,
-      filename: req.file.originalname
+      resumeText
     });
 
   } catch (error) {
@@ -217,23 +198,12 @@ Make questions based on the candidate’s role, experience,interviewMode, projec
     user.credits -= 50;
     await user.save();
 
-    let sessionResumeFile = undefined;
-    if (user.resume && user.resume.data && safeResume !== "None") {
-      sessionResumeFile = {
-        data: user.resume.data,
-        contentType: user.resume.contentType || "application/pdf",
-        filename: user.resume.filename || "resume.pdf",
-        size: user.resume.size || 0
-      };
-    }
-
     const interview = await Interview.create({
       userId: user._id,
       role,
       experience,
       mode,
       resumeText: safeResume,
-      resumeFile: sessionResumeFile,
       questions: questionsArray.map((q, index) => ({
         question: q,
         difficulty: ["easy", "easy", "medium", "medium", "hard"][index],
@@ -431,7 +401,7 @@ export const getMyInterviews = async (req,res) => {
   try {
     const interviews = await Interview.find({userId:req.userId})
     .sort({ createdAt: -1 })
-    .select("role experience mode finalScore status createdAt resumeFile.filename");
+    .select("role experience mode finalScore status createdAt");
 
     return res.status(200).json(interviews)
 
@@ -442,7 +412,7 @@ export const getMyInterviews = async (req,res) => {
 
 export const getInterviewReport = async (req,res) => {
   try {
-    const interview = await Interview.findById(req.params.id).select("-resumeFile.data");
+    const interview = await Interview.findById(req.params.id)
 
     if (!interview) {
       return res.status(404).json({ message: "Interview not found" });
@@ -477,37 +447,13 @@ export const getInterviewReport = async (req,res) => {
       confidence: Number(avgConfidence.toFixed(1)),
       communication: Number(avgCommunication.toFixed(1)),
       correctness: Number(avgCorrectness.toFixed(1)),
-      questionWiseScore: interview.questions,
-      hasResumeFile: !!(interview.resumeFile && interview.resumeFile.filename),
-      resumeFilename: interview.resumeFile?.filename || null
+      questionWiseScore: interview.questions
     });
 
   } catch (error) {
     return res.status(500).json({message:`failed to find currentUser Interview report ${error}`})
   }
 }
-
-export const downloadInterviewResume = async (req, res) => {
-  try {
-    const interview = await Interview.findOne({
-      _id: req.params.id,
-      userId: req.userId
-    });
-
-    if (!interview || !interview.resumeFile || !interview.resumeFile.data) {
-      return res.status(404).json({ message: "No resume found for this interview." });
-    }
-
-    res.setHeader("Content-Type", interview.resumeFile.contentType || "application/pdf");
-    res.setHeader(
-      "Content-Disposition",
-      `inline; filename="${interview.resumeFile.filename || "interview-resume.pdf"}"`
-    );
-    return res.send(interview.resumeFile.data);
-  } catch (error) {
-    return res.status(500).json({ message: `Failed to download interview resume: ${error.message}` });
-  }
-};
 
 
 

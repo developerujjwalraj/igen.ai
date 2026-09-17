@@ -35,12 +35,6 @@ const interviewSchema = new mongoose.Schema({
     resumeText:{
      type:String
     },
-    resumeFile:{
-      data: { type: Buffer },
-      contentType: { type: String },
-      filename: { type: String },
-      size: { type: Number }
-    },
     questions:[questionsSchema],
 
     finalScore: { type: Number, default: 0 },

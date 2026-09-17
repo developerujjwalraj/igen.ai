@@ -154,16 +154,7 @@ ${resumeText}`
       }
     }
 
-    // 5. Save resume into User document and deduct credits
-    user.resume = {
-      data: fileBuffer,
-      contentType: req.file?.mimetype || "application/pdf",
-      filename: req.file?.originalname || "resume.pdf",
-      size: req.file?.size || fileBuffer.length,
-      text: resumeText,
-      role: role || "",
-      updatedAt: new Date()
-    };
+    // 5. Deduct 30 credits upon successful analysis
     user.credits -= ATS_CREDIT_COST;
     await user.save();
 
