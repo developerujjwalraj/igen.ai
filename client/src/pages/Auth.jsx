@@ -11,7 +11,12 @@ import { useDispatch } from 'react-redux';
 import { setUserData } from '../redux/userSlice';
 import { useNavigate } from 'react-router-dom';
 
-function Auth({isModel = false}) {
+function Auth({
+    isModel = false, 
+    titleBadge = "AI Smart Interview", 
+    description = "Sign in to start AI-powered mock interviews, track your progress, and unlock detailed performance insights.",
+    onSuccess
+}) {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
@@ -27,6 +32,9 @@ function Auth({isModel = false}) {
             let email = User.email
             const result = await axios.post(ServerUrl + "/api/auth/google" , {name , email} , {withCredentials:true})
             dispatch(setUserData(result.data))
+            if (onSuccess) {
+                onSuccess(result.data)
+            }
             if (!isModel) {
                 navigate("/")
             }
@@ -66,13 +74,12 @@ function Auth({isModel = false}) {
                 Continue with
                 <span className='bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/60 px-3 py-1 rounded-full inline-flex items-center gap-2 ml-2'>
                     <IoSparkles size={16}/>
-                    AI Smart Interview
+                    {titleBadge}
                 </span>
             </h1>
 
             <p className='text-gray-500 dark:text-slate-400 text-center text-sm md:text-base leading-relaxed mb-8'>
-                Sign in to start AI-powered mock interviews,
-                track your progress, and unlock detailed performance insights.
+                {description}
             </p>
 
             {errorMsg && (

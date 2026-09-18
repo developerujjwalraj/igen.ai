@@ -47,7 +47,7 @@ function AtsCheckPage() {
     const [authLoading, setAuthLoading] = useState(false);
     const [error, setError] = useState("");
     const [result, setResult] = useState(null);
-    const [showAuth, setShowAuth] = useState(false);
+    const [showAuth, setShowAuth] = useState(!userData);
 
     const handleGoogleSignIn = async () => {
         setAuthLoading(true);
@@ -59,6 +59,7 @@ function AtsCheckPage() {
             const email = user.email;
             const res = await axios.post(ServerUrl + "/api/auth/google", { name, email }, { withCredentials: true });
             dispatch(setUserData(res.data));
+            setShowAuth(false);
         } catch (err) {
             console.error("Google sign in error:", err);
             setError(err.response?.data?.message || err.message || "Failed to sign in with Google.");
@@ -68,6 +69,10 @@ function AtsCheckPage() {
     };
 
     const handleFileChange = (e) => {
+        if (!userData) {
+            setShowAuth(true);
+            return;
+        }
         const file = e.target.files?.[0];
         if (file) {
             if (file.type !== "application/pdf") {
@@ -87,6 +92,10 @@ function AtsCheckPage() {
 
     const handleDrop = (e) => {
         e.preventDefault();
+        if (!userData) {
+            setShowAuth(true);
+            return;
+        }
         const file = e.dataTransfer.files?.[0];
         if (file) {
             if (file.type !== "application/pdf") {
@@ -284,55 +293,42 @@ function AtsCheckPage() {
                     </motion.div>
                 )}
 
-                {/* Main Content Area: Google Auth Required, Upload Form, or Results */}
-                {!userData ? (
-                    <motion.div 
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="max-w-lg mx-auto bg-white dark:bg-[#111622] rounded-3xl p-8 md:p-12 shadow-xl dark:shadow-black/50 border border-gray-200 dark:border-slate-800 text-center transition-colors duration-200"
-                    >
-                        <div className="w-16 h-16 mx-auto mb-5 rounded-2xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center border border-emerald-200 dark:border-emerald-800/80 shadow-sm">
-                            <FaLock size={26} />
-                        </div>
-
-                        <h2 className="text-2xl font-extrabold text-gray-900 dark:text-white mb-2">
-                            Sign In with Google Required
-                        </h2>
-
-                        <p className="text-sm text-gray-600 dark:text-slate-400 mb-6 leading-relaxed">
-                            To check your resume ATS compatibility and access detailed keyword insights, you must sign up or sign in with your Google account.
-                        </p>
-
-                        <div className="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/50 mb-6 text-left">
-                            <p className="text-xs font-semibold text-emerald-800 dark:text-emerald-300 flex items-center gap-1.5 mb-1">
-                                <span>🎁</span> 100 Free Credits on Sign Up
-                            </p>
-                            <p className="text-xs text-emerald-700 dark:text-emerald-400">
-                                New accounts automatically receive 100 free credits. Each ATS check uses only 30 credits!
-                            </p>
-                        </div>
-
-                        <button
-                            type="button"
-                            onClick={handleGoogleSignIn}
-                            disabled={authLoading}
-                            className="w-full py-3.5 px-6 rounded-2xl border border-gray-300 dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-gray-50 dark:hover:bg-slate-800 text-gray-800 dark:text-white font-semibold text-sm flex items-center justify-center gap-3 transition shadow-sm hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
-                        >
-                            <FcGoogle size={22} />
-                            <span>{authLoading ? "Signing in with Google..." : "Continue with Google"}</span>
-                        </button>
-
-                        <p className="text-xs text-gray-400 dark:text-slate-500 mt-4">
-                            Instant access • No password needed
-                        </p>
-                    </motion.div>
-                ) : !result ? (
+                {/* Main Content Area: Upload Form or Results */}
+                {!result ? (
                     <motion.form 
                         onSubmit={handleSubmit}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         className="bg-white dark:bg-[#111622] rounded-3xl p-6 md:p-10 shadow-sm dark:shadow-black/40 border border-gray-200 dark:border-slate-800 transition-colors duration-200"
                     >
+                        {/* Unauthenticated User Banner */}
+                        {!userData && (
+                            <div className="mb-8 p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-emerald-500/5 border border-emerald-500/30 flex flex-col sm:flex-row items-center justify-between gap-4">
+                                <div className="flex items-center gap-3.5 text-left">
+                                    <div className="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/70 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl shrink-0 border border-emerald-200 dark:border-emerald-800/60">
+                                        🎁
+                                    </div>
+                                    <div>
+                                        <h4 className="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                                            100 Free Credits on Sign Up
+                                            <span className="px-2 py-0.5 text-[10px] font-extrabold uppercase rounded-full bg-emerald-500 text-white">Instant</span>
+                                        </h4>
+                                        <p className="text-xs text-gray-600 dark:text-slate-400 mt-0.5">
+                                            Sign in with Google to check your resume ATS compatibility and access detailed keyword insights.
+                                        </p>
+                                    </div>
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => setShowAuth(true)}
+                                    className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition shadow-sm cursor-pointer whitespace-nowrap flex items-center justify-center gap-2"
+                                >
+                                    <FcGoogle size={16} />
+                                    <span>Sign In with Google</span>
+                                </button>
+                            </div>
+                        )}
+
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                             {/* Left Column: File Upload */}
                             <div>
@@ -348,7 +344,13 @@ function AtsCheckPage() {
                                             ? "border-emerald-500 bg-emerald-50/50 dark:bg-emerald-950/20" 
                                             : "border-gray-300 dark:border-slate-700 hover:border-emerald-400 dark:hover:border-emerald-500 bg-gray-50/60 dark:bg-slate-900/40"
                                     }`}
-                                    onClick={() => document.getElementById("resume-upload-input")?.click()}
+                                    onClick={() => {
+                                        if (!userData) {
+                                            setShowAuth(true);
+                                            return;
+                                        }
+                                        document.getElementById("resume-upload-input")?.click();
+                                    }}
                                 >
                                     <input
                                         id="resume-upload-input"
@@ -463,9 +465,9 @@ function AtsCheckPage() {
                                 )}
                                 <button
                                     type="submit"
-                                    disabled={loading || !resumeFile || (userData && userData.credits < 30)}
+                                    disabled={loading || (userData && !resumeFile) || (userData && userData.credits < 30)}
                                     className={`w-full sm:w-auto px-8 py-3.5 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition cursor-pointer ${
-                                        loading || !resumeFile || (userData && userData.credits < 30)
+                                        loading || (userData && !resumeFile) || (userData && userData.credits < 30)
                                             ? "bg-gray-200 dark:bg-slate-800 text-gray-400 dark:text-slate-500 cursor-not-allowed"
                                             : "bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-600/20 hover:scale-[1.01] active:scale-[0.99]"
                                     }`}
@@ -741,7 +743,13 @@ function AtsCheckPage() {
                 )}
             </main>
 
-            {showAuth && <AuthModel onClose={() => setShowAuth(false)} />}
+            {showAuth && (
+                <AuthModel 
+                    onClose={() => setShowAuth(false)} 
+                    titleBadge="ATS Score Check"
+                    description="Sign in to check your resume ATS score, get AI keyword suggestions, and unlock detailed performance insights."
+                />
+            )}
         </div>
     );
 }

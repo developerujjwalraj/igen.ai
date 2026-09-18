@@ -34,6 +34,8 @@ import CallToAction from '../components/CallToAction';
 function Home() {
   const { userData } = useSelector((state) => state.user)
   const [showAuth, setShowAuth] = useState(false);
+  const [authRedirect, setAuthRedirect] = useState(null);
+  const [authFeature, setAuthFeature] = useState(null);
   const navigate = useNavigate()
   return (
     <div className='min-h-screen bg-[#f8fafc] dark:bg-[#07090e] text-gray-900 dark:text-gray-100 flex flex-col transition-colors duration-300 relative overflow-hidden'>
@@ -95,10 +97,12 @@ function Home() {
               <motion.button
                 onClick={() => {
                   if (!userData) {
-                    setShowAuth(true)
+                    setAuthFeature("interview");
+                    setAuthRedirect("/interview");
+                    setShowAuth(true);
                     return;
                   }
-                  navigate("/interview")
+                  navigate("/interview");
                 }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
@@ -111,7 +115,15 @@ function Home() {
               </motion.button>
 
               <motion.button
-                onClick={() => navigate("/ats-check")}
+                onClick={() => {
+                  if (!userData) {
+                    setAuthFeature("ats");
+                    setAuthRedirect("/ats-check");
+                    setShowAuth(true);
+                    return;
+                  }
+                  navigate("/ats-check");
+                }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
                 className='relative group overflow-hidden bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-emerald-500/50 hover:border-emerald-500 text-emerald-700 dark:text-emerald-300 font-bold px-7 py-3.5 rounded-full shadow-md shadow-emerald-500/10 hover:shadow-emerald-500/20 transition-all cursor-pointer flex items-center gap-2'>
@@ -125,10 +137,12 @@ function Home() {
               <motion.button
                 onClick={() => {
                   if (!userData) {
-                    setShowAuth(true)
+                    setAuthFeature("interview");
+                    setAuthRedirect("/history");
+                    setShowAuth(true);
                     return;
                   }
-                  navigate("/history")
+                  navigate("/history");
                 }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
@@ -306,7 +320,15 @@ function Home() {
 
                   <div className="pt-4 flex flex-wrap items-center gap-4">
                     <button
-                      onClick={() => navigate("/ats-check")}
+                      onClick={() => {
+                        if (!userData) {
+                          setAuthFeature("ats");
+                          setAuthRedirect("/ats-check");
+                          setShowAuth(true);
+                          return;
+                        }
+                        navigate("/ats-check");
+                      }}
                       className="relative group overflow-hidden bg-gradient-to-r from-emerald-500 via-emerald-600 to-teal-600 text-white font-bold px-8 py-3.5 rounded-full shadow-lg shadow-emerald-500/30 hover:shadow-emerald-500/50 hover:scale-105 active:scale-95 transition-all cursor-pointer flex items-center gap-2.5"
                     >
                       <span>Check Your ATS</span>
@@ -320,7 +342,15 @@ function Home() {
 
                 {/* Right Column: Generated 3D Asset Preview */}
                 <div className="w-full lg:w-2/5 flex justify-center">
-                  <div className="relative group/img cursor-pointer" onClick={() => navigate("/ats-check")}>
+                  <div className="relative group/img cursor-pointer" onClick={() => {
+                    if (!userData) {
+                      setAuthFeature("ats");
+                      setAuthRedirect("/ats-check");
+                      setShowAuth(true);
+                      return;
+                    }
+                    navigate("/ats-check");
+                  }}>
                     <div className="absolute -inset-2 bg-gradient-to-r from-emerald-500/30 to-teal-500/30 rounded-3xl blur-xl opacity-75 group-hover/img:opacity-100 transition duration-500" />
                     <img
                       src={atsFeatureImg}
@@ -473,7 +503,25 @@ function Home() {
         </div>
       </div>
 
-      {showAuth && <AuthModel onClose={() => setShowAuth(false)} />}
+      {showAuth && (
+        <AuthModel 
+          onClose={() => {
+            setShowAuth(false);
+            setAuthRedirect(null);
+            setAuthFeature(null);
+          }}
+          titleBadge={authFeature === "ats" ? "ATS Score Check" : "AI Smart Interview"}
+          description={authFeature === "ats" 
+            ? "Sign in to check your resume ATS score, get AI keyword suggestions, and unlock detailed performance insights."
+            : "Sign in to start AI-powered mock interviews, track your progress, and unlock detailed performance insights."
+          }
+          onSuccess={() => {
+            if (authRedirect) {
+              navigate(authRedirect);
+            }
+          }}
+        />
+      )}
 
       <Footer onOpenAuth={() => setShowAuth(true)} />
 
